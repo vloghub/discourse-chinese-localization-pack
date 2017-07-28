@@ -1,6 +1,6 @@
 # name: Discourse 中文本地化服务集合
 # about: 为 Discourse 增加了各种本地化的功能。
-# version: 0.18
+# version: 0.19
 # authors: Erick Guan
 # url: https://github.com/fantasticfears/discourse-chinese-localization-pack
 
@@ -66,7 +66,7 @@ after_initialize do
 
       # only catch when a oauth login and a username is random
       if hash[:auth_provider]
-        match = hash[:username].match(/^\d+$/i)
+        match = (hash[:username] || '').match(/^\d+$/i)
 
         if SiteSetting.zh_l10n_disable_random_username_sugeestion && match
           hash[:username] = nil
