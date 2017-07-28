@@ -1,6 +1,6 @@
 # name: Discourse 中文本地化服务集合
 # about: 为 Discourse 增加了各种本地化的功能。
-# version: 0.17
+# version: 0.18
 # authors: Erick Guan
 # url: https://github.com/fantasticfears/discourse-chinese-localization-pack
 
@@ -61,7 +61,8 @@ after_initialize do
 
   module ::DisableUsernameSuggester
     def to_client_hash
-      hash = super
+      hash = defined?(super) ? super : nil
+      return nil unless hash
 
       # only catch when a oauth login and a username is random
       if hash[:auth_provider]
