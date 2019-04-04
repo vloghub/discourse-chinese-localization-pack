@@ -1,45 +1,52 @@
 # name: Discourse 中文本地化服务集合
 # about: 为 Discourse 增加了各种本地化的功能。
-# version: 1.0.0
+# version: 2.0.0
 # authors: Erick Guan
 # url: https://github.com/fantasticfears/discourse-chinese-localization-pack
 
 enabled_site_setting :zh_l10n_enabled
+
+gem('omniauth-douban-oauth2', '0.0.7') # https://github.com/liluo/omniauth-douban-oauth2
+gem('omniauth-qq', '0.3.0') # https://github.com/beenhero/omniauth-qq
+gem('omniauth-weibo-oauth2', '0.5.2') # https://github.com/beenhero/omniauth-weibo-oauth2
+
+register_svg_icon 'fab-weibo'
+register_svg_icon 'fab-qq'
+# register_svg_icon 'zhl10n-douban'
 
 # load oauth providers
 Dir[File.expand_path('../lib/auth/*.rb', __FILE__)].each { |f| require f }
 require 'active_support/inflector'
 require "ostruct"
 
-# name, frame_width, frame_height, background_color, glyph
-PROVIDERS = [
-  OpenStruct.new(pretty_name: 'Weibo', frame_width: 920, frame_heigh: 800, background_color: 'rgb(230, 22, 45)', glyph: '\f18a'),
-  OpenStruct.new(pretty_name: 'QQ', frame_width: 760, frame_heigh: 500, background_color: '#51b7ec', glyph: '\f1d6'),
-  OpenStruct.new(pretty_name: 'Douban', frame_width: 380, frame_heigh: 460, background_color: 'rgb(42, 172, 94)', glyph: '豆'),
-  OpenStruct.new(pretty_name: 'Renren', frame_width: 950, frame_heigh: 500, background_color: 'rgb(0, 94, 172)', glyph: '\f18b')
-].freeze
+PROVIDERS = ['Weibo', 'QQ', 'Douban']
+
 PLUGIN_PREFIX = 'zh_l10n_'.freeze
 SITE_SETTING_NAME = 'zh_l10n_enabled'.freeze
 ONEBOX_SETTING_NAME = 'zh_l10n_http_onebox_override'.freeze
 
-def _prepare_auth_provide_args(struct)
-  args = struct.to_h
-  name = args[:pretty_name]
-  args[:authenticator] = "#{name}Authenticator".constantize.new
-  args
+def provider_icon(provider_name)
+  provider_name = provider_name.downcase
+  if provider_name == "douban"
+    nil
+  else
+    "fab-#{provider_name}"
+  end
 end
 
-PROVIDERS.each { |provider| auth_provider _prepare_auth_provide_args(provider) }
+PROVIDERS.each { |name| auth_provider(authenticator: "#{name}Authenticator".constantize.new, icon: provider_icon(name)) }
 
 Dir[File.expand_path('../lib/onebox_override/*.rb', __FILE__)].each { |f| require f }
+
+register_asset "stylesheets/buttons.scss"
 
 after_initialize do
   next unless SiteSetting.zh_l10n_enabled
 
   Dir[File.expand_path('../lib/onebox/*.rb', __FILE__)].each { |f| require f }
 
-  PROVIDERS.each do |provider|
-    provider_name = provider.name.downcase
+  PROVIDERS.each do |name|
+    provider_name = name.downcase
     enable_setting = "#{PLUGIN_PREFIX}enable_#{provider_name}_logins"
     check = "#{provider_name}_config_check".to_sym
 
