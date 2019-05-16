@@ -1,25 +1,28 @@
 zh_CN:
+  login:
+    weibo:
+      name: "微博"
   js:
     login:
       weibo:
-        title: "使用微博帐号登录"
-        message: "使用微博帐号验证登录（请确保没有禁止浏览器弹出对话框）"
+        title: "微博登录"
+        message: "微博验证登录（请确保没有禁止浏览器弹出对话框）"
       renren:
-        title: "使用人人帐号登录"
-        message: "使用人人帐号验证登录（请确保没有禁止浏览器弹出对话框）"
+        title: "人人登录"
+        message: "人人验证登录（请确保没有禁止浏览器弹出对话框）"
       qq:
-        title: "使用 QQ 帐号登录"
-        message: "使用 QQ 帐号验证登录（请确保没有禁止浏览器弹出对话框）"
+        title: " QQ 登录"
+        message: " QQ 验证登录（请确保没有禁止浏览器弹出对话框）"
       douban:
-        title: "使用豆瓣帐号登录"
-        message: "使用豆瓣帐号验证登录（请确保没有禁止浏览器弹出对话框）"
+        title: "豆瓣登录"
+        message: "豆瓣验证登录（请确保没有禁止浏览器弹出对话框）"
       wechat:
-        title: "使用微信帐号登录"
-        message: "使用微信帐号扫描二维码验证登录（请确保没有禁止浏览器弹出对话框）"
+        title: "微信登录"
+        message: "微信扫描二维码验证登录（请确保没有禁止浏览器弹出对话框）"
     share:
-      weibo: '分享这个链接到微博'
-      renren: '分享这个链接到人人网'
-      wechat: '分享这个链接到微信'
-      douban: '分享这个链接到豆瓣'
-      qzone: '分享这个链接到 QQ 空间'
-      tencent_weibo: '分享这个链接到腾讯微博'
+      weibo: '分享到微博'
+      renren: '分享到人人网'
+      wechat: '分享到微信'
+      douban: '分享到豆瓣'
+      qzone: '分享到 QQ 空间'
+      tencent_weibo: '分享到腾讯微博'
